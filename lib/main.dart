@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:state_test/model/incrementModel.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider<Increment>(
-    create: (context) => Increment(),
-    child: MyApp(),
-  ));
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  int number = 0;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,21 +26,14 @@ class MyApp extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                /*
-                Here we can use Consumer like taat
-                Consumer<Increment>(
-                    builder: (context, object, widget) => Text(
-                          'press to increment ${object.number}',
-                          textScaleFactor: 2.0,
-                        )),
-                */
                 Text(
-                  'press to increment ${Provider.of<Increment>(context, listen: true).number}',
+                  'press to increment $number',
                   textScaleFactor: 2.0,
                 ),
                 MaterialButton(
                   onPressed: () {
-                    Provider.of<Increment>(context, listen: false).add();
+                    number++;
+                    setState(() {});
                   },
                   child: Text("Press"),
                   color: Colors.green,
